@@ -63,10 +63,10 @@ public class StringExercises {
         // TODO: 8 - Check if two strings are equal using .equals() (not ==)
         // Create two String variables with the same text content and compare them.
         // Print the result of .equals() and explain why == may not work for Strings.
-        String str1 = "abc";
-        String str2 = "abc";
-        System.out.println(".equals()"+ str1.equals(str2));
-        System.out.println("==" + str1==str2);
+        String str1 = new String("abc");
+        String str2 = new String ("abc");
+        System.out.println(".equals(): "+ (str1.equals(str2)));
+        System.out.println("str1==str2: " + (str1==str2));
         System.out.println("== compares the value that would be stored on the memory stack, which is the reference location. .equals() will bypass that and compare the value stored");
 
     }
