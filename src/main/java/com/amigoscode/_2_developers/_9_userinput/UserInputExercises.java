@@ -157,22 +157,22 @@ public class UserInputExercises {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-//        System.out.println("=== Read String ===");
-//        String name = readString(scanner);
-//        System.out.println("Hello, " + name + "!");
-//
-//        System.out.println("\n=== Read Int Safely ===");
-//        int number = readIntSafely(scanner);
-//        System.out.println("You entered: " + number);
-//
-//        System.out.println("\n=== Read Until Quit ===");
-//        readUntilQuit(scanner);
-//
-//        System.out.println("\n=== Validation ===");
-//        System.out.println("Age 25 valid? " + isValidAge(25));
-//        System.out.println("Age -5 valid? " + isValidAge(-5));
-//        System.out.println("Email 'test@mail.com' valid? " + isValidEmail("test@mail.com"));
-//        System.out.println("Email 'invalid' valid? " + isValidEmail("invalid"));
+        System.out.println("=== Read String ===");
+        String name = readString(scanner);
+        System.out.println("Hello, " + name + "!");
+
+        System.out.println("\n=== Read Int Safely ===");
+        int number = readIntSafely(scanner);
+        System.out.println("You entered: " + number);
+
+        System.out.println("\n=== Read Until Quit ===");
+        readUntilQuit(scanner);
+
+        System.out.println("\n=== Validation ===");
+        System.out.println("Age 25 valid? " + isValidAge(25));
+        System.out.println("Age -5 valid? " + isValidAge(-5));
+        System.out.println("Email 'test@mail.com' valid? " + isValidEmail("test@mail.com"));
+        System.out.println("Email 'invalid' valid? " + isValidEmail("invalid"));
 
         System.out.println("\n=== Registration Form ===");
         registrationForm(scanner);
