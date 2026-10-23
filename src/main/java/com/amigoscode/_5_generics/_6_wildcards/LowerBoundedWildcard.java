@@ -22,7 +22,11 @@ public class LowerBoundedWildcard {
     //  It should add the integers 1, 2, and 3 to the list.
     //  This works because any list that holds Integer or a supertype of Integer
     //  can safely accept Integer values.
-
+    static void addNumbers(List<? super Integer> list){
+        list.add(1);
+        list.add(2);
+        list.add(3);
+    }
 
     // TODO: 2 - Create a static method:
     //  <T> void moveElements(List<? extends T> source, List<? super T> destination)
@@ -30,7 +34,9 @@ public class LowerBoundedWildcard {
     //  This is the PECS principle in action:
     //    source uses "extends" because it PRODUCES elements (we read from it)
     //    destination uses "super" because it CONSUMES elements (we write to it)
-
+    static <T> void moveElements(List<? extends T> source, List<? super T> destination){
+        destination.addAll(source);
+    }
 
     public static void main(String[] args) {
 
@@ -39,7 +45,15 @@ public class LowerBoundedWildcard {
         //  (b) List<Number>    - Number is a supertype of Integer
         //  (c) List<Object>    - Object is a supertype of Integer
         //  Print each list after calling addNumbers().
-
+        List<Integer> intList = new ArrayList<>();
+        List<Number> numberList = new ArrayList<>();
+        List<Object> objectList = new ArrayList<>();
+        addNumbers(intList);
+        addNumbers(numberList);
+        addNumbers(objectList);
+        System.out.println(intList);
+        System.out.println(numberList);
+        System.out.println(objectList);
 
         // TODO: 4 - Demonstrate that you CAN add Integer to List<? super Integer>.
         //  Create a List<? super Integer> variable, assign a new ArrayList<Number>()
@@ -47,16 +61,21 @@ public class LowerBoundedWildcard {
         //  Then try adding a Double and observe/explain the compile error (commented out).
         //
         // list.add(3.14);  // Why doesn't this compile even though list holds Numbers?
-
+        List<? super Integer> wcList = new ArrayList<Number>();
+         addNumbers(wcList);
 
         // TODO: 5 - Use moveElements() to move elements from a List<Integer> source
         //  to a List<Number> destination. Print the destination list to verify.
-
+        moveElements(intList, numberList);
+        System.out.println(numberList);
 
         // TODO: 6 - Add a comment below explaining the PECS principle
         //  (Producer Extends, Consumer Super) as it applies to this exercise.
         //  Why is "super" appropriate when the list is a CONSUMER (we write to it)?
         //  How does this complement the "extends" wildcard?
-
+        // This is purely due to ensuring type-safety. When reading, we may not know whether a list stores Integers, or Doubles, or Floats, but we do know all of the are
+        // Numbers. We can easily read and store all of these values as 'Numbers', while still retaining their actual type. We can read an Integer as a Number, which really
+        // just means that we are assigning a Number pointer to point to the Integer object. When it comes to writing on the other hand, we may want to not be very strict on type
+        // since we may encounter an item that is of type Superclass to Numbers.
     }
 }
