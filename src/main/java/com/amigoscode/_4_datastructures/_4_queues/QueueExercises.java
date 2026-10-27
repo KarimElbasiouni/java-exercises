@@ -16,22 +16,29 @@ public class QueueExercises {
 
         // TODO: 1 - Create a Queue of Strings using LinkedList as the implementation
         //           Queue<String> queue = ...
-
+        Queue<String> queue = new LinkedList<>();
 
         // TODO: 2 - Add 5 elements to the queue using offer(): "Task1", "Task2", "Task3", "Task4", "Task5"
-
+        queue.offer("Task1");
+        queue.offer("Task2");
+        queue.offer("Task3");
+        queue.offer("Task4");
+        queue.offer("Task5");
 
         // TODO: 3 - Peek at the front element without removing it
         //           Print the result (should be "Task1")
-
+        System.out.println(queue.peek());
 
         // TODO: 4 - Poll (remove) an element from the front and print it
         //           Then print the queue to see the remaining elements
-
+        System.out.println(queue.remove());
+        System.out.println(queue);
 
         // TODO: 5 - Iterate through the queue using a for-each loop and print each element
         //           Note: this does NOT remove elements from the queue
-
+        for (String s : queue) {
+            System.out.println(s);
+        }
 
         // --- PriorityQueue ---
         System.out.println("\n--- PriorityQueue ---");
@@ -39,7 +46,19 @@ public class QueueExercises {
         // TODO: 6 - Create a PriorityQueue of Integers, add these values: 50, 20, 40, 10, 30
         //           Poll all elements one by one and print them
         //           Observe how they come out in natural (ascending) order, not insertion order
+        PriorityQueue<Integer> priorityQueue = new PriorityQueue<>();
 
+        priorityQueue.offer(50);
+        priorityQueue.offer(20);
+        priorityQueue.offer(40);
+        priorityQueue.offer(10);
+        priorityQueue.offer(30);
+
+        System.out.println(priorityQueue.poll());
+        System.out.println(priorityQueue.poll());
+        System.out.println(priorityQueue.poll());
+        System.out.println(priorityQueue.poll());
+        System.out.println(priorityQueue.poll());
 
         // --- Print Queue Simulation ---
         System.out.println("\n--- Print Queue Simulation ---");
@@ -49,5 +68,14 @@ public class QueueExercises {
         //           Process (poll) each job one by one, printing "Printing: <job>" for each
         //           Continue until the queue is empty
 
+        Queue<String> jobQueue = new LinkedList<>();
+        jobQueue.offer("Report.pdf");
+        jobQueue.offer("Photo.jpg");
+        jobQueue.offer("Letter.docx");
+        jobQueue.offer("Slides.pptx");
+
+        while(!jobQueue.isEmpty()) {
+            System.out.println("Printing: " + jobQueue.poll());
+        }
     }
 }
