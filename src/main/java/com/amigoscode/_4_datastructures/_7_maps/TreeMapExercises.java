@@ -29,15 +29,18 @@ public class TreeMapExercises {
         System.out.println(productPrices.firstKey());
         System.out.println(productPrices.lastKey());
         System.out.println();
+
         // TODO: 4 - Get a submap of products from "Laptop" (inclusive) to "Phone" (exclusive)
         //           using subMap() and print it
         System.out.println(productPrices.subMap("Laptop", "Phone"));
         System.out.println();
+
         // TODO: 5 - Iterate over the TreeMap in natural (ascending) key order
         //           Print each product and price in format: "<product>: $<price>"
         productPrices.entrySet().forEach(
                 entry -> System.out.println(entry.getKey() + ": " +  entry.getValue()));
         System.out.println();
+
         // TODO: 6 - Iterate in reverse order using descendingMap()
         //           Print each product and price
         productPrices.descendingMap().entrySet().forEach(
