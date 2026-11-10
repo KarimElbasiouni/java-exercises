@@ -1,5 +1,7 @@
 package com.amigoscode._6_functionalinterfaces._2_functionalinterfaces;
 
+import org.w3c.dom.ls.LSOutput;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,33 +21,51 @@ public class SupplierExercise {
 
         // TODO: 1 - Create a Supplier<String> called 'helloSupplier' that
         //  returns "Hello World". Call get() and print the result.
-
-
+        Supplier<String> helloSupplier = ()->"Hello World";
+        System.out.println(helloSupplier.get());
+        System.out.println();
         // TODO: 2 - Create a Supplier<Double> called 'randomSupplier' that
         //  returns a random number using Math.random(). Call get() three times
         //  and print each result to observe different values.
-
-
+        Supplier<Double> randomSupplier = Math::random;
+        System.out.println(randomSupplier.get());
+        System.out.println(randomSupplier.get());
+        System.out.println(randomSupplier.get());
+        System.out.println();
         // TODO: 3 - Create a Supplier<List<String>> called 'listFactory' that
         //  returns a new empty ArrayList each time get() is called. Call it
         //  twice, add "A" to the first list, and print both lists to show
         //  they are independent.
+        Supplier<List<String>> listFactory = ArrayList::new;
+        List<String> list1 = listFactory.get();
+        List<String> list2 = listFactory.get();
+        list1.add("A");
 
+        System.out.println(list1);
+        System.out.println(list2);
+        System.out.println();
 
         // TODO: 4 - Demonstrate lazy initialization: Create a Supplier<String>
         //  called 'expensiveOperation' that prints "Computing..." and then
         //  returns "Result". Show that the message is NOT printed until get()
         //  is actually called by printing "Before get()" and "After get()"
         //  around the call.
-
-
+        Supplier<String> expensiveOperation = () ->{
+            System.out.println("Computing...");
+            return "Result";
+        };
+        System.out.println("Before get()");
+        expensiveOperation.get();
+        System.out.println("After get()");
+        System.out.println();
         // TODO: 5 - Create a Supplier<LocalDateTime> called 'now' that returns
         //  LocalDateTime.now(). Call get() and print the current date/time.
-
-
+        Supplier<LocalDateTime> now = LocalDateTime::now;
+        System.out.println(now.get());
+        System.out.println();
         // TODO: 6 - Call the generateMultiple method below with your
         //  randomSupplier and print the returned list of 5 random numbers.
-
+        System.out.println(generateMultiple(randomSupplier, 5));
     }
 
     /**

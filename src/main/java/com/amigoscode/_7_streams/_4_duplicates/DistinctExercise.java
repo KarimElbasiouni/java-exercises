@@ -29,32 +29,32 @@ public class DistinctExercise {
 
         // TODO: 1 - Remove duplicates from 'numbersWithDuplicates' using distinct()
         //           Print the resulting unique numbers
-
+        System.out.println(numbersWithDuplicates.stream().distinct().collect(Collectors.toList()));
 
         // TODO: 2 - Remove duplicates from 'mixedCaseNames' in a case-insensitive manner
         //           Map all names to lowercase first, then use distinct()
         //           Print the resulting unique names
-
+        System.out.println(mixedCaseNames.stream().map(String::toLowerCase).distinct().collect(Collectors.toList()));
 
         // TODO: 3 - Collect 'fruits' to a Set instead of using distinct()
         //           This automatically removes duplicates
         //           Print the resulting set
-
+        System.out.println(fruits.stream().collect(Collectors.toSet()));
 
         // TODO: 4 - Count the number of distinct elements in 'numbersWithDuplicates'
         //           Use distinct() followed by count()
         //           Print the count
-
+        System.out.println(numbersWithDuplicates.stream().distinct().count());
 
         // TODO: 5 - Remove duplicate Person objects from 'people'
         //           Since Person is a record, equals/hashCode are auto-generated
         //           Use distinct() and print each unique person
-
+        System.out.println(people.stream().distinct().collect(Collectors.toList()));
 
         // TODO: 6 - Remove duplicates from 'fruits' with custom logic using a TreeSet
         //           collector that ignores case (use String.CASE_INSENSITIVE_ORDER)
         //           Hint: Collectors.toCollection(() -> new TreeSet<>(String.CASE_INSENSITIVE_ORDER))
         //           Print the result
-
+        System.out.println(fruits.stream().collect(Collectors.toCollection(() -> new TreeSet<>(String.CASE_INSENSITIVE_ORDER))));
     }
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 /**
@@ -21,28 +22,29 @@ public class ForEachAndCollect {
 
         // TODO: 1 - Use forEach to print each element of 'languages' on a separate line
         //           Use a lambda expression
-
+        languages.stream().forEach(language -> System.out.println(language));
 
         // TODO: 2 - Use forEach with a method reference to print each element of 'numbers'
         //           Use System.out::println
-
+        numbers.stream().forEach(System.out::println);
 
         // TODO: 3 - Filter 'numbers' to keep even numbers, then collect the results to a List
         //           Print the resulting list
-
+        System.out.println(numbers.stream().filter(num -> num%2 ==0).toList());
 
         // TODO: 4 - Collect 'languages' stream results to a Set (removes duplicates automatically)
         //           Print the resulting set
-
+        System.out.println(languages.stream().collect(Collectors.toSet()));
 
         // TODO: 5 - Collect 'numbers' stream to an unmodifiable list
         //           Use Collectors.toUnmodifiableList() or .toList()
         //           Print the result
-
+        System.out.println(numbers.stream().collect(Collectors.toUnmodifiableList()));
 
         // TODO: 6 - Use Collectors.toCollection() to collect 'languages' into a LinkedList
         //           Print the resulting LinkedList and its class name to verify the type
         //           Hint: Collectors.toCollection(LinkedList::new)
+        System.out.println(languages.stream().collect((Collector<? super String, Object, LinkedList<Object>>) Collectors.toCollection(LinkedList::new)));
 
     }
 }

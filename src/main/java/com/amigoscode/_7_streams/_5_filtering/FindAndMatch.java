@@ -29,36 +29,40 @@ public class FindAndMatch {
 
         // TODO: 1 - Use findFirst() to find the first number greater than 7 in 'numbers'
         //           Print the result
-
+        System.out.println(numbers.stream().filter(num -> num>7).findFirst());
 
         // TODO: 2 - Use findAny() on a parallel stream of 'names' to find any name
         //           starting with a vowel (A, E, I, O, U)
         //           Print the result (may vary between runs due to parallelism)
-
+        System.out.println(names.stream().filter(str -> str.matches("(?i)[AEIOU].*")).findAny());
 
         // TODO: 3 - Use allMatch() to check if all elements in 'evenNumbers' are even
         //           Print true or false
-
+        System.out.println(evenNumbers.stream().allMatch(num-> num%2==0));
 
         // TODO: 4 - Use anyMatch() to check if at least one product in 'products'
         //           has a price over 500
         //           Print true or false
-
+        System.out.println(products.stream().anyMatch(prd -> prd.price>500));
 
         // TODO: 5 - Use noneMatch() to check that no product in 'products'
         //           has a negative price
         //           Print true or false
-
+        System.out.println(products.stream().noneMatch(prd -> prd.price<0));
 
         // TODO: 6 - Handle the Optional from findFirst() properly:
         //           Find the first product in "Furniture" category
         //           Use ifPresentOrElse to print the product name or "Not found"
-
+        products.stream()
+                .filter(prd -> prd.category.equals("Furniture"))
+                .findFirst()
+                .ifPresentOrElse(prd-> System.out.println(prd.name), ()-> System.out.println("Not Found"));
 
         // TODO: 7 - Combine filter + findFirst to search for a specific product:
         //           Find the first product with price between 100 and 300
         //           Use map to extract just the name, then orElse("Not found")
         //           Print the result
+        System.out.println(products.stream().filter(prd-> prd.price>=100 && prd.price<=300).findFirst().map(prd-> prd.name).orElse("Not found"));
 
     }
 }

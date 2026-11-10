@@ -22,20 +22,37 @@ public class CallbackExercise {
         //  Call fetchData twice:
         //    a) with simulateSuccess = true
         //    b) with simulateSuccess = false
-
+        fetchData(true,
+                data -> System.out.println("Data received: " + data),
+                error -> System.out.println("Error occurred: " +  error)
+        );
 
         // TODO: 5 - Call processAsync with:
         //  - task: a Runnable that prints "Processing data..."
         //  - onComplete: a Runnable that prints "Processing complete!"
-
+        processAsync(
+                () -> System.out.println("Processing data..."),
+                ()-> System.out.println("Processing complete!")
+        );
 
         // TODO: 6 - Use callbacks to chain operations. Call performSteps below
         //  with three Runnable callbacks: step1 prints "Step 1: Loading",
         //  step2 prints "Step 2: Transforming", step3 prints "Step 3: Saving".
         //  The method will execute them in order.
-
+        performSteps(
+                () -> System.out.println("Step 1: Loading"),
+                () -> System.out.println("Step 2: Transforming"),
+                () -> System.out.println("Step 3: Saving")
+        );
     }
-
+    static void fetchData(boolean simulateSuccess, Consumer<String> onSuccess, Consumer<String> onFailure){
+        System.out.println("Fetching data...");
+        if(simulateSuccess){
+            onSuccess.accept("{ \"id\": 1, \"name\": \"Alice\" }");
+        }else{
+            onFailure.accept("Connection timed out");
+        }
+    }
     // TODO: 1 - Create a method called fetchData that takes:
     //    boolean simulateSuccess,
     //    Consumer<String> onSuccess,
@@ -53,6 +70,12 @@ public class CallbackExercise {
     //    Runnable onComplete
     //  It should run the task first, then call onComplete.
     //  Print "Starting process..." before the task and "Done." after onComplete.
+    static void processAsync(Runnable task, Runnable onComplete){
+        System.out.println("Starting process...");
+        task.run();
+        onComplete.run();
+        System.out.println("Done.");
+    }
 
 
     /**
