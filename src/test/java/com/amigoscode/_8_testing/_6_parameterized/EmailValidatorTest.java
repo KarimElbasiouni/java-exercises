@@ -7,6 +7,7 @@ import org.junit.jupiter.params.provider.*;
 
 import java.util.stream.Stream;
 
+import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -30,13 +31,32 @@ class EmailValidatorTest {
     //  Annotate with @ValueSource(strings = {"user@example.com", "test@domain.org",
     //      "name.surname@company.co.uk", "user123@test.com"}).
     //  Assert that emailValidator.isValid(email) returns true for each.
-
+    @ParameterizedTest
+    @ValueSource(strings = {
+            "user@example.com",
+            "test@domain.org",
+            "name.surname@company.co.uk",
+            "user123@test.com"}
+    )
+    void canValidateEmail(String email){
+        assertThat(emailValidator.isValid(email)).isTrue();
+    }
 
     // TODO: 2 - Use @ParameterizedTest with @ValueSource for invalid emails.
     //  Test invalid email formats: "plaintext", "@missing-local.com",
     //      "missing-domain@", "missing@dot", "user@@double.com".
     //  Assert that emailValidator.isValid(email) returns false for each.
-
+    @ParameterizedTest
+    @ValueSource(strings ={
+            "plaintext",
+            "@missing-local.com",
+             "missing-domain@",
+            "missing@dot",
+            "user@@double.com"
+    })
+    void canInvalidateEmail(String email){
+        assertThat(emailValidator.isValid(email)).isFalse();
+    }
 
     // TODO: 3 - Use @NullAndEmptySource to test null and empty inputs.
     //  Create a parameterized test annotated with @ParameterizedTest
@@ -44,7 +64,12 @@ class EmailValidatorTest {
     //  Assert that emailValidator.isValid(email) returns false for null and empty strings.
     //  Hint: You can combine @NullAndEmptySource with @ValueSource by also adding
     //  @ValueSource(strings = {"  ", "\t", "\n"}) to test whitespace-only strings.
-
+    @ParameterizedTest
+    @NullAndEmptySource
+    @ValueSource(strings = {"  ",  "\t", "\n"})
+    void canInvalidateEmptyOrNullOrWhitespaceEmails(String email){
+        assertThat(emailValidator.isValid(email)).isFalse();
+    }
 
     // TODO: 4 - Use @CsvSource with email and expected result pairs.
     //  Annotate with @CsvSource({
@@ -56,7 +81,17 @@ class EmailValidatorTest {
     //  }).
     //  The test method should take (String email, boolean expected) parameters.
     //  Assert that emailValidator.isValid(email) equals expected.
-
+    @ParameterizedTest
+    @CsvSource({
+            "user@example.com, true",
+          "invalid-email, false",
+          "test@domain.org, true",
+          "@no-local.com, false",
+          "no-domain@, false"
+    })
+    void canValidateEmailsFromCSV(String email, boolean expected){
+        assertThat(emailValidator.isValid(email)).isEqualTo(expected);
+    }
 
     // TODO: 5 - Use @MethodSource to provide test arguments from a static method.
     //  Create a static method named emailProvider() that returns Stream<Arguments>.
@@ -70,7 +105,20 @@ class EmailValidatorTest {
     //          ...
     //      );
     //  }
+    @ParameterizedTest
+    @MethodSource("emailProvider")
+    void methodSourceValidator(String email, boolean expected){
+        assertThat(emailValidator.isValid(email)).isEqualTo(expected);
+    }
 
+    static Stream<Arguments> emailProvider() {
+        return Stream.of(
+                Arguments.of("valid@test.com", true),
+                Arguments.of("invalid", false),
+                Arguments.of("  ", false),
+                Arguments.of("@no-local.com", false)
+        );
+    }
 
     // TODO: 6 - Use @EnumSource to test with enum values (if applicable).
     //  Create a simple enum inside this test class:
@@ -79,5 +127,17 @@ class EmailValidatorTest {
     //  }
     //  Write a parameterized test with @EnumSource(EmailDomain.class).
     //  For each domain, construct "test@" + domain.domain and assert it's valid.
+    @ParameterizedTest
+    @EnumSource(EmailDomain.class)
+    void canValidateEnumEmail(EmailDomain domain){
+        assertThat(emailValidator.isValid("test@" + domain.domain)).isTrue();
+    }
 
+    enum EmailDomain {
+        GMAIL("gmail.com"),
+        YAHOO("yahoo.com"),
+        OUTLOOK("outlook.com");
+        final String domain;
+        EmailDomain(String d) { this.domain = d; }
+    }
 }

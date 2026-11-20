@@ -4,6 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -27,31 +29,84 @@ class StringUtilsTest {
     //  Assert that "hello" is NOT a palindrome (assertFalse).
     //  Assert that "A man a plan a canal Panama" is a palindrome (assertTrue).
 
+    @Test
+    void isPalindrome() {
+        // given
+
+        // when
+
+        // then
+        assertTrue(stringUtils.isPalindrome("racecar"));
+        assertFalse(stringUtils.isPalindrome("hello"));
+        assertTrue(stringUtils.isPalindrome("A man a plan a canal Panama"));
+    }
 
     // TODO: 2 - Test reverse using assertEquals.
     //  Assert that reversing "hello" returns "olleh".
     //  Assert that reversing "Java" returns "avaJ".
     //  Assert that reversing "" (empty string) returns "".
+    @Test
+    void reverse() {
+        // given
 
+        // when
+
+        // then
+        assertThat(stringUtils.reverse("hello")).isEqualTo("olleh");
+        assertThat(stringUtils.reverse("Java")).isEqualTo("avaJ");
+        assertThat(stringUtils.reverse("")).isEqualTo("");
+    }
 
     // TODO: 3 - Test capitalize using assertEquals.
     //  Assert that capitalizing "hello" returns "Hello".
     //  Assert that capitalizing "java" returns "Java".
     //  Assert that capitalizing "" (empty string) returns "".
 
+    @Test
+    void capitalize() {
+        // given
+
+        // when
+
+        // then
+        assertThat(stringUtils.capitalize("hello")).isEqualTo("Hello");
+        assertThat(stringUtils.capitalize("java")).isEqualTo("Java");
+        assertThat(stringUtils.capitalize("")).isEqualTo("");
+    }
 
     // TODO: 4 - Test isEmpty with various inputs including a null check.
     //  Assert that isEmpty(null) returns true (assertTrue).
     //  Assert that isEmpty("") returns true.
     //  Assert that isEmpty("   ") returns true (whitespace only).
     //  Assert that isEmpty("hello") returns false (assertFalse).
+    @Test
+    void isEmpty() {
+        // given
+        assertThat(stringUtils.isEmpty(null)).isTrue();
+        assertThat(stringUtils.isEmpty("")).isTrue();
+        assertThat(stringUtils.isEmpty("   ")).isTrue();
+        assertThat(stringUtils.isEmpty("hello")).isFalse();
+        // when
 
+        // then
+    }
 
     // TODO: 5 - Test countVowels using assertEquals.
     //  Assert that countVowels("hello") returns 2.
     //  Assert that countVowels("AEIOU") returns 5.
     //  Assert that countVowels("xyz") returns 0.
+    @Test
+    void countVowels() {
+        // given
 
+        // when
+
+        // then
+        assertThat(stringUtils.countVowels("hello")).isEqualTo(2);
+        assertThat(stringUtils.countVowels("AEIOU")).isEqualTo(5);
+        assertThat(stringUtils.countVowels("xyz")).isEqualTo(0);
+
+    }
 
     // TODO: 6 - Use assertAll to group multiple related assertions together.
     //  Group at least 3 assertions about the reverse method into a single assertAll call.
@@ -60,11 +115,27 @@ class StringUtilsTest {
     //      () -> assertEquals("avaJ", stringUtils.reverse("Java")),
     //      () -> assertEquals("", stringUtils.reverse(""))
     //  );
-
+    @Test
+    void multipleAssertions(){
+        assertAll(
+              () -> assertEquals("olleh", stringUtils.reverse("hello")),
+              () -> assertEquals("avaJ", stringUtils.reverse("Java")),
+              () -> assertEquals("", stringUtils.reverse(""))
+        );
+    }
 
     // TODO: 7 - Test that passing null input to methods throws IllegalArgumentException.
     //  Use assertThrows to verify that isPalindrome(null) throws IllegalArgumentException.
     //  Use assertThrows to verify that reverse(null) throws IllegalArgumentException.
     //  Use assertThrows to verify that countVowels(null) throws IllegalArgumentException.
 
+    @Test
+    void passingNullThrowsIllegalArgumentException(){
+
+        assertAll(
+                () -> assertThrows(IllegalArgumentException.class, () ->stringUtils.isPalindrome(null)),
+                () -> assertThrows(IllegalArgumentException.class, () ->stringUtils.reverse(null)),
+                () -> assertThrows(IllegalArgumentException.class, () ->stringUtils.countVowels(null))
+        );
+    }
 }

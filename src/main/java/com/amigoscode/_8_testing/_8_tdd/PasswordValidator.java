@@ -27,6 +27,15 @@ public class PasswordValidator {
      */
     public boolean isValid(String password) {
         // TODO: Students implement this after writing tests first (TDD approach)
-        throw new UnsupportedOperationException("Implement me using TDD!");
+        if(password==null){
+            throw new IllegalArgumentException("password cannot be null");
+        }
+        if(password.length() < 8) return false;
+        if(!password.matches(".*[A-Z].*")) return false;
+        if(!password.matches(".*[a-z].*")) return false;
+        if(!password.matches(".*\\d.*")) return false;
+        if(!password.matches(".*[^a-zA-Z0-9].*"))return false;
+
+        return true;
     }
 }

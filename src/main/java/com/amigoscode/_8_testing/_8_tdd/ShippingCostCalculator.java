@@ -27,6 +27,14 @@ public class ShippingCostCalculator {
      */
     public double calculate(double weight, String destination) {
         // TODO: Students implement this after writing tests first (TDD approach)
-        throw new UnsupportedOperationException("Implement me using TDD!");
+        if (weight < 0) throw new IllegalArgumentException("Weight cannot be negative");
+        if (destination == null) throw new IllegalArgumentException("Destination cannot be null");
+        if (weight == 0) return 0.0;
+
+        double base = 0;
+        base += destination.equals("domestic") ? 5.00 + 0.50 * weight: 15.00 + 1.50 * weight;
+        if (weight > 50) base+= 25.00;
+
+        return base;
     }
 }
